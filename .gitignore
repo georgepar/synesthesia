@@ -2,6 +2,9 @@
 *ckpt*
 checkpoint
 
+# Ignore MNIST data location
+MNIST_data/
+
 # Log files
 *.log
 
