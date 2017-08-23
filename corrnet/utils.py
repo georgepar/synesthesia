@@ -1,11 +1,10 @@
 from __future__ import division
 import tensorflow as tf
 import toolz
-import corrnet.config as corrnet_cfg
 
 
-def get_num_iterations(num_samples):
-    return int(num_samples / corrnet_cfg.train.batch_size)
+def get_num_iterations(num_samples, batch_size):
+    return int(num_samples / batch_size)
 
 
 def square_sum(x):
