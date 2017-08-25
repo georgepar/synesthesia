@@ -39,9 +39,9 @@ def build_encoder_for_input(nn_input, input_name, encoder_hidden_units):
         return encoder
 
 
-def build_encoder(inputs, hidden_units):
-    encoder1 = build_encoder_for_input(inputs[0], 'input1', hidden_units)
-    encoder2 = build_encoder_for_input(inputs[1], 'input2', hidden_units)
+def build_encoder(input1, hidden_units1, input2, hidden_units2):
+    encoder1 = build_encoder_for_input(input1, 'input1', hidden_units1)
+    encoder2 = build_encoder_for_input(input2, 'input2', hidden_units2)
     return encoder1, encoder2
 
 
@@ -60,9 +60,9 @@ def build_decoder_for_input(hidden, input_name, decoder_hidden_units):
         return decoder
 
 
-def build_decoder(common_representation, hidden_units):
+def build_decoder(common_representation, hidden_units1, hidden_units2):
     decoder1 = build_decoder_for_input(
-        common_representation, 'input1', hidden_units)
+        common_representation, 'input1', hidden_units1)
     decoder2 = build_decoder_for_input(
-        common_representation, 'input2', hidden_units)
+        common_representation, 'input2', hidden_units2)
     return decoder1, decoder2
