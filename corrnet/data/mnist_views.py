@@ -33,7 +33,7 @@ map_mnist_take_right_half = partial(
 def create_view_dataset(images, labels, take_half_func):
     halves = take_half_func(images)
     options = dict(dtype=dtypes.float32, seed=None)
-    dataset = corrnet.data.dataset.DataSet(halves, labels, **options)
+    dataset = corrnet.data.dataset.ImageDataSet(halves, labels, **options)
     return dataset
 
 
