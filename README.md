@@ -6,3 +6,5 @@ This architecture is an extension of Multimodal Autoencoders that expects the ve
 
 1. Creates a common representation of the two modalities (fusion)
 2. Reconstructs one modality given the other (crossmodal mapping)
+
+Demo available in the `corrnet.ipynb` notebook.
