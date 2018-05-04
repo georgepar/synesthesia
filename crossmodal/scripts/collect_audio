@@ -1,0 +1,3 @@
+# This bash collects the wav paths.
+
+find "$1" -name "*.wav" | grep sentences >audio_data

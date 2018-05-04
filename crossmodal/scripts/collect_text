@@ -1,0 +1,3 @@
+# This bash collects all the utterances from the IEMOCAP dataset.
+
+cat $(find $1 -name "*.txt" | grep transcriptions) |grep -E "^Ses" | grep -E "(M|F)\d\d\d" >text_data
