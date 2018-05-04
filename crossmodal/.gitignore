@@ -1,0 +1,11 @@
+# Ignore generated files
+./parsers/text/iemocap.text.utt
+.DS_store
+parsers/audio/wav.paths.utt
+wav.paths.utt
+this.txt
+iemocap.text.utt
+aff_data
+*.pkl
+__pycache__/
+*_data
