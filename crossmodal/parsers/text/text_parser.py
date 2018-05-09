@@ -1,5 +1,6 @@
 import glob
 import os
+
 "This is a class for parsing the text data of Iemocap dataset"
 
 class Text_Parser:
@@ -13,7 +14,7 @@ class Text_Parser:
                                                  'path does not exists!'
 
     """
-    This method returns a dictionary containing the text_data of the 
+    This method returns a dictionary containing the text_data of the
     dataset
     Dictionary keys: Utterance-id,Gender,Transcription
     """
@@ -28,9 +29,7 @@ class Text_Parser:
                           "Session4", "Session5"]
 
         for Session in listofSessions:
-
-            path = self.datasetPath+"/"+Session+"/dialog/" \
-                                                "transcriptions/"
+            path = os.path.join(self.datasetPath,Session,"dialog","transcriptions/")
             contained_files = glob.glob(path+"*.txt")
 
             for utt_file in contained_files:
@@ -58,10 +57,3 @@ class Text_Parser:
                                 transcription)
 
         return text_attr_dict
-
-"""
-def dummy_call():
-    text = Text_Parser("/home/manzar/Desktop/IEMOCAP")
-    text_dict = text.utterance_parser()
-dummy_call()
-"""
