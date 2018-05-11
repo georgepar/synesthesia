@@ -273,10 +273,10 @@ class IEMOCAP_Dataset_parser:
         return np.array([5,4,1,2]),260000
 
 
-
+"""
 def dummy():
     data_parser=IEMOCAP_Dataset_parser("/home/manzar/Desktop/IEMOCAP/")
     axa = data_parser.read_dataset()
 
 dummy()
-
+"""
