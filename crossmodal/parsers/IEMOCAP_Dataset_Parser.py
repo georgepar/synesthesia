@@ -2,7 +2,8 @@ import os
 import glob
 
 """
-This class parses the IEMOCAP DATASET and receives text,audio, and evaluation data.
+This class parses the IEMOCAP DATASET and receives text,audio,  
+and evaluation data.
 """
 class IEMOCAP_Dataset_parser:
 
@@ -17,10 +18,12 @@ class IEMOCAP_Dataset_parser:
 
 
     """
-    This method reads the text,audio and evaluation data of IEMOCAP dataset and creates a dictionary.
+    This method reads the text,audio and evaluation data of  IEMOCAP 
+    dataset and creates a dictionary.
     Returns a dictionary with keys:
     main_key:  Utterance-Id
-    partial_keys: Speaker-Id, Gender, Transcription, Wav, Freq, Emotion, Valence, Action, Dominance
+    partial_keys: Speaker-Id, Gender, Transcription, Wav, Freq,  
+    Emotion, Valence, Action, Dominance
     """
     def read_dataset(self):
 
@@ -31,19 +34,26 @@ class IEMOCAP_Dataset_parser:
         eval_dict = self.read_eval_data(eval_paths)
         audio_dict = self.read_audio_data(wav_paths)
 
-        final_dict={}
-        value_dict={}
+        final_dict = {}
         for utt_id in eval_dict:
-            value_dict={"Speaker-Id":text_dict[utt_id]["Speaker-Id"], "Gender":text_dict[utt_id]["Gender"], "Transcription":text_dict[utt_id]["Transcription"], "Wav":audio_dict[utt_id]["Wav"], "Freq":audio_dict[utt_id]["Freq"],
-            "Emotion":eval_dict[utt_id]["Emotion"], "Valence":eval_dict[utt_id]["Valence"],
-            "Action":eval_dict[utt_id]["Action"],
-            "Dominance":eval_dict[utt_id]["Dominance"] }
+            value_dict = {"Speaker-Id": text_dict[utt_id]["Speaker-Id"],
+                        "Gender": text_dict[utt_id]["Gender"],
+                        "Transcription": text_dict[utt_id][
+                            "Transcription"],
+                        "Wav": audio_dict[
+                        utt_id]["Wav"],
+                        "Freq": audio_dict[utt_id]["Freq"],
+                        "Emotion": eval_dict[utt_id]["Emotion"],
+                        "Valence": eval_dict[utt_id]["Valence"],
+                        "Action": eval_dict[utt_id]["Action"],
+                        "Dominance": eval_dict[utt_id]["Dominance"]}
             final_dict[utt_id] = value_dict
 
         return final_dict
 
     """
-    This method collects all files paths containing transcriptions , wavs and evaluations.
+    This method collects all files paths containing transcriptions , 
+    wavs  and evaluations.
     Returns a 3 lists containing those paths.
     1st list transcription paths.
     2nd list wav paths.
@@ -59,19 +69,25 @@ class IEMOCAP_Dataset_parser:
 
         for Session in listofSessions:
 
-            path = os.path.join(self.datasetPath,Session,"dialog","transcriptions/")
-            transcription_paths = transcription_paths +glob.glob(path+"*.txt")
+            path = os.path.join(self.datasetPath,Session,"dialog",
+                                "transcriptions/")
+            transcription_paths = transcription_paths + glob.glob(
+                path+"*.txt")
 
-            path = os.path.join(self.datasetPath,Session,"dialog","EmoEvaluation/")
+            path = os.path.join(self.datasetPath,Session,"dialog",
+                                "EmoEvaluation/")
             eval_paths = eval_paths + glob.glob(path+"*.txt")
 
-            path = os.path.join(self.datasetPath,Session,"sentences","wav/")
-            wav_paths = wav_paths + glob.glob(path+"**/*.wav",recursive=True)
+            path = os.path.join(self.datasetPath, Session,
+                                "sentences", "wav/")
+            wav_paths = wav_paths + glob.glob(path + "**/*.wav",
+                                              recursive=True)
 
         return transcription_paths,wav_paths,eval_paths
 
     """
-    This method takes all transcription paths and returns a nested dictionary with keys:
+    This method takes all transcription paths and returns a nested  
+    dictionary with keys:
     main_key:Utterance-Id
     partial_keys: Speaker-Id,  Gender, Transcription
     """
@@ -82,7 +98,8 @@ class IEMOCAP_Dataset_parser:
         all_Speakers = []
 
         for text_file in text_paths:
-            utt_list,gender_list,trans_list= self.read_trans_from_file(text_file)
+            utt_list,gender_list,trans_list = \
+                self.read_trans_from_file(text_file)
             all_Utterances = utt_list + all_Utterances
             all_Genders = gender_list + all_Genders
             all_Transcriptions = trans_list + all_Transcriptions
@@ -95,7 +112,9 @@ class IEMOCAP_Dataset_parser:
         value_dict={}
         i=0
         for utt_id in all_Utterances:
-            value_dict = { "Gender":all_Genders[i], "Speaker-Id":all_Speakers[i], "Transcription":all_Transcriptions[i] }
+            value_dict = { "Gender":all_Genders[i],
+                           "Speaker-Id":all_Speakers[i],
+                           "Transcription":all_Transcriptions[i] }
             text_dict[utt_id] = value_dict
             i+=1
 
@@ -103,11 +122,13 @@ class IEMOCAP_Dataset_parser:
 
 
     """
-    This method takes as input a file(containing utt and trans) and returns 3 lists.
+    This method takes as input a file(containing utt and trans) and  
+    returns 3 lists.
     The 1st list contains every utterance key.
     The 2nd list contains every gender.
     The 3rd list contains every transcription.
-    The lists are sorted so as each utterance key has its relevant transcription at the same index.
+    The lists are sorted so as each utterance key has its relevant  
+    transcription at the same index.
     """
     def read_trans_from_file(self,text_file):
 
@@ -140,7 +161,8 @@ class IEMOCAP_Dataset_parser:
 
 
     """
-    This method takes all text files paths containing the emotion evaluation and returns a nested dictionary with keys:
+    This method takes all text files paths containing the emotion  
+    evaluation and returns a nested dictionary with keys:
     main_key: Utterance-Id
     partial_keys: Emotion,Valence,Action,Dominance.
     """
@@ -152,7 +174,8 @@ class IEMOCAP_Dataset_parser:
         Dominance_list = []
 
         for eval_file in eval_paths:
-            utt_list,em_list,val_list,ac_list,dom_list = self.read_aff_from_file(eval_file)
+            utt_list,em_list,val_list,ac_list,dom_list =  \
+                self.read_aff_from_file(eval_file)
             Utt_id_list = Utt_id_list + utt_list
             Emotion_list = Emotion_list + em_list
             Valence_list = Valence_list + val_list
@@ -164,7 +187,10 @@ class IEMOCAP_Dataset_parser:
         value_dict={}
         i=0
         for utt_id in Utt_id_list:
-            value_dict = { "Emotion":Emotion_list[i], "Valence":Valence_list[i], "Action":Action_list[i], "Dominance":Dominance_list[i] }
+            value_dict = { "Emotion":Emotion_list[i],
+                           "Valence":Valence_list[i],
+                           "Action":Action_list[i],
+                           "Dominance":Dominance_list[i] }
             eval_dict[utt_id] = value_dict
             i+=1
 
@@ -185,7 +211,8 @@ class IEMOCAP_Dataset_parser:
 
         infile = open(eval_file,"r")
         for line in infile.readlines():
-            if( ("Ses" in line) and ("MX"not in line)               and ("FX" not in line) ):
+            if( ("Ses" in line) and ("MX"not in line)
+                    and ("FX" not in line) ):
                 line_splitted = line.split("\t")
                 utt_id = line_splitted[1]
                 emotion = line_splitted[2]
@@ -203,11 +230,13 @@ class IEMOCAP_Dataset_parser:
                     Action_list.append(action)
                     Dominance_list.append(dominance)
 
-        return Utterance_id_list, Emotion_list, Valence_list, Action_list, Dominance_list
+        return Utterance_id_list, Emotion_list, Valence_list,  \
+               Action_list, Dominance_list
 
 
     """
-    This method takes as input all wav files paths and returns a nested dictionary with keys:
+    This method takes as input all wav files paths and returns a  
+    nested dictionary with keys:
     main_key: Utterance-Id
     partial_keys: Wav,Freq
     """
@@ -237,7 +266,8 @@ class IEMOCAP_Dataset_parser:
 
     """
     This is a dummy audio reader!
-    The original should take a wavfile and return normalized np-array of wav and the relevant freq!
+    The original should take a wavfile and return normalized np-array 
+    of wav and the relevant freq!
     """
     def dummy_audio_reader(self,infile):
         import numpy as np
@@ -246,7 +276,7 @@ class IEMOCAP_Dataset_parser:
 
 """
 def dummy():
-    data_parser = IEMOCAP_Dataset_parser("/home/manzar/Desktop/IEMOCAP/")
+    data_parser=IEMOCAP_Dataset_parser("/home/manzar/Desktop/IEMOCAP/")
     axa = data_parser.read_dataset()
 
 dummy()
