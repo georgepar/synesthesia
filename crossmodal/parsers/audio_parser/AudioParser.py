@@ -18,8 +18,8 @@ class AudioParser:
 
             # Check if normalization is asked.
             if normalize:
-                self.sound,bits_per_sample, \
-                self.freq = self.read(audio_path)
+                self.sound, self.freq, \
+                bits_per_sample= self.read(audio_path)
                 self.sound = norm(self.sound,
                                   bits_per_sample)
             else:
@@ -30,16 +30,19 @@ class AudioParser:
     read(): It loads the audio file using the audio.load method.
     '''
     def read(self,
-             path,
-             sampling_width = True):
+             path):
 
-        # Read from path.
-
-        sound, sampling_width,freq = load(path,sampling_width)
-        return sound, freq
+        # Read from path and keep the f
+        sound,freq,sample_width = load(path)
+        return sound, freq, sample_width
 
     '''
     get_audio(): This function returns the np.ndarray created.
     '''
     def get_audio(self):
         return self.sound
+
+
+if __name__ == '__main__':
+    path = '/Users/alexkafiris/Documents/IEMOCAP/Session1/sentences/wav/Ses01M_impro01/Ses01M_impro01_M000.wav'
+    k = AudioParser(path)
