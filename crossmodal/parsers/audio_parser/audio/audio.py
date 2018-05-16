@@ -4,13 +4,16 @@ import os
 
 def load(path,
          sampling_width = True,
+         freq = True,
          encoding = 'wav'):
     '''
     Inputs:
         1) path: The path to the file.
         2) sampling_width: Flag to check if to return number
                 of bits per sample or not.
-        3) encoding: Tells the type of the audio encoding in 
+        3) freq: Flag to check if to return the frequency of 
+                this audio file.
+        4) encoding: Tells the type of the audio encoding in 
                 order to use the correct method of 
                 AudioSegment.
 
@@ -32,15 +35,15 @@ def load(path,
     # Make array of audio object.
     audio_array = audio_file.get_array_of_samples()
 
+    # Find frequency of audio.
+    if freq:
+        audio_freq = audio_file.frame_rate
+
     # Check what to return.
     if sampling_width:
 
         # Read bytes per sample, make it to bits and return.
         sampling_width = audio_file.sample_width * 8
-        return (audio_array, sampling_width)
+        return (audio_array, audio_freq, sampling_width)
     else:
-        return audio_array
-
-
-if __name__ == '__main__':
-    (load('/Users/alexkafiris/Documents/IEMOCAP/Session1/ sentences/wav/Ses01F_impro01/Ses01F_impro01_F000.wav'))
+        return audio_array, audio_freq

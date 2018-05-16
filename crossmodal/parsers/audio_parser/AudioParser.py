@@ -11,7 +11,6 @@ class AudioParser:
     def __init__(self,
                  audio_path,
                  normalize = True,
-                 norm_way = 'on_bits',
                  default = True):
 
         # Check if default behaviour is asked.
@@ -19,15 +18,10 @@ class AudioParser:
 
             # Check if normalization is asked.
             if normalize:
-                self.sound,bits_per_sample = self.read(audio_path)
-
-                # Check the way of normalization.
-                if norm_way == 'on_bits':
-                    self.sound = norm(self.sound,
-                                      bits_per_sample)
-                else:
-                    self.sound = norm(self.sound,
-                                      on_max = True)
+                self.sound,bits_per_sample, \
+                self.freq = self.read(audio_path)
+                self.sound = norm(self.sound,
+                                  bits_per_sample)
             else:
                 self.sound = self.read(audio_path)
 
@@ -40,17 +34,12 @@ class AudioParser:
              sampling_width = True):
 
         # Read from path.
-        sound, sampling_width = load(path,sampling_width)
-        return sound, sampling_width
+
+        sound, sampling_width,freq = load(path,sampling_width)
+        return sound, freq
 
     '''
     get_audio(): This function returns the np.ndarray created.
     '''
     def get_audio(self):
         return self.sound
-
-
-
-if __name__ == '__main__':
-    k = AudioParser(audio_path = '/Users/alexkafiris/Documents/IEMOCAP/Session1/sentences/wav/Ses01F_impro01/Ses01F_impro01_F000.wav')
-    print(k.get_audio())
