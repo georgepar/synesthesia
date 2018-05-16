@@ -25,3 +25,12 @@ def pitch(sound = None,
     # Return the pitch array.
     return piptrack(y = sound, sr = sr, hop_length = overlap, fmin = 1.0 * fmin, fmax = 1.0 * fmax, threshold = threshold)
 
+if __name__ == '__main__':
+    import sys
+    import os
+    sys.path.append(os.path.abspath('../../'))
+    #import parsers.audio_parser.AudioParser as AParser 
+    import parsers.audio_parser.AudioParser as Aparser
+    k = Aparser.AudioParser('/Users/alexkafiris/Documents/IEMOCAP/Session1/sentences/wav/Ses01M_impro01/Ses01M_impro01_M000.wav')
+
+    print(pitch(k.get_audio(),sr = k.freq))
