@@ -13,12 +13,13 @@ The returned value is a Zcr numpy array (each element is the zcr for
 each  frame)
 """
 
+
 def zcr(wav,freq,window_size=20,overlap=0.5):
 
-    #calculate frame's length in samples
+    # calculate frame's length in samples
     frame_length =round(freq * window_size*(10**-3))
-    #calculate hop for overlap in samples
-    hop_length = round(overlap*frame_length)
+    # calculate hop for overlap in samples
+    hop_length = round((1-overlap)*frame_length)
 
     zcr_array = zero_crossing_rate(wav, frame_length=frame_length,
                                    hop_length=hop_length)
