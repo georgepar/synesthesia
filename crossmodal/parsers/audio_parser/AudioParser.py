@@ -1,5 +1,7 @@
-from audio.audio import load as load
-from audio.array_op import normalize as norm
+import sys
+sys.path.append('/Users/alexkafiris/Desktop/synesthesia/crossmodal')
+from parsers.audio_parser.audio.audio import load as load
+from parsers.audio_parser.audio.array_op import normalize as norm
 import numpy as np 
 
 class AudioParser:

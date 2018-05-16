@@ -1,6 +1,6 @@
 from librosa.feature import mfcc
 import numpy as np 
-
+from pydub import AudioSegment 
 
 def mfccs(sound = None,
           sr = None,
@@ -28,3 +28,13 @@ def mfccs(sound = None,
 
     # Return the result.
     return mfccs
+
+if __name__ == '__main__':
+  import sys
+  sys.path.append('/Users/alexkafiris/Desktop/synesthesia/crossmodal')
+  import parsers.audio_parser.AudioParser as Aparser
+
+  k = Aparser.AudioParser('/Users/alexkafiris/Documents/IEMOCAP/Session1/sentences/wav/Ses01M_impro01/Ses01M_impro01_M000.wav')
+
+  z = mfccs(k.get_audio(),k.freq)
+  print(z)
