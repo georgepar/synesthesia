@@ -4,12 +4,15 @@ import os
 
 def load(path,
          freq = True,
+         sampling_width = False,
          encoding = 'wav'):
     '''
     Inputs:
         1) path: The path to the file.
-        3) freq: Flag to check if to return the frequency of 
+        2) freq: Flag to check if to return the frequency of 
                 this audio file.
+        3) sampling_width: Flag to check if bits per sample
+                should be returned.
         4) encoding: Tells the type of the audio encoding in 
                 order to use the correct method of 
                 AudioSegment.
@@ -17,8 +20,8 @@ def load(path,
     Returns:
         1) audio_array: np.ndarray of file loaded.
         2) audio_freq: The sampling rate of the .wav file.
-        2) sampling_width: Returns the number of 
-                bits per sample of the encoding.
+        3) sampling_width: Returns the number of 
+                bits per sample of the encoding if asked.
     '''
 
     # Check if path exists.
@@ -42,4 +45,7 @@ def load(path,
     else:
         audio_freq = None
 
-    return audio_array, audio_freq, bits_per_sample
+    if sampling_width:
+        return audio_array, audio_freq, bits_per_sample
+    else:
+        return audio_array, audio_freq

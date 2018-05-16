@@ -33,7 +33,7 @@ class AudioParser:
              path):
 
         # Read from path and keep the f
-        sound,freq,sample_width = load(path)
+        sound,freq,sample_width = load(path, sampling_width = True)
         return sound, freq, sample_width
 
     '''
