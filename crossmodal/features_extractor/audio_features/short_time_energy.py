@@ -1,5 +1,6 @@
 from librosa.feature import rmse
 import numpy as np
+
 """
 This function returns the short_time_energy of a wav file.
 The function takes as input the normalized wav file(in numpy array
