@@ -4,10 +4,13 @@ import numpy as np
 
 """
 This function returns the zcr of a wav file.
-The function takes as input the normalized wav file(in numpy array form) the relative freq, the desirable window_size(in ms) and the desirable overlap for frame segmentation.
+The function takes as input the normalized wav file(in numpy array 
+form)  the relative freq, the desirable window_size(in ms) and the  
+desirable overlap for frame segmentation.
 The window_size is by default 20ms.
 The overlap is by default 0.5 (50ms)
-The returned value is a Zcr numpy array (each element is the zcr for each frame)
+The returned value is a Zcr numpy array (each element is the zcr for 
+each  frame)
 """
 
 def zcr(wav,freq,window_size=20,overlap=0.5):
@@ -17,6 +20,7 @@ def zcr(wav,freq,window_size=20,overlap=0.5):
     #calculate hop for overlap in samples
     hop_length = round(overlap*frame_length)
 
-    zcr_array = zero_crossing_rate(wav, frame_length=frame_length, hop_length=hop_length)
+    zcr_array = zero_crossing_rate(wav, frame_length=frame_length,
+                                   hop_length=hop_length)
 
     return zcr_array
