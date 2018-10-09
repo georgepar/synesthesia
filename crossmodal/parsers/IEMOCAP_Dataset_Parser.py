@@ -1,6 +1,6 @@
 import os
 import glob
-
+from audio_parser.AudioParser import AudioParser
 """
 This class parses the IEMOCAP DATASET and receives text,audio,  
 and evaluation data.
@@ -247,7 +247,7 @@ class IEMOCAP_Dataset_parser:
         for wav in audio_paths:
             utt_id = wav.split("/")[9]
             utt_id = utt_id[0:len(utt_id)-4]
-            (wav_array,freq) = self.dummy_audio_reader(wav)
+            (wav_array, freq) = self.AudioParser.get_audio(wav)
             Utt_id_list.append(utt_id)
             Wav_list.append(wav_array)
             Freq_list.append(freq)
@@ -267,16 +267,15 @@ class IEMOCAP_Dataset_parser:
     This is a dummy audio reader!
     The original should take a wavfile and return normalized np-array 
     of wav and the relevant freq!
-    """
+    
     def dummy_audio_reader(self,infile):
         import numpy as np
         return np.array([5,4,1,2]),260000
 
 
 """
-def dummy():
-    data_parser=IEMOCAP_Dataset_parser("/home/manzar/Desktop/IEMOCAP/")
-    axa = data_parser.read_dataset()
 
-dummy()
-"""
+
+if __name__ == '__main__':
+    data_parser = IEMOCAP_Dataset_parser("/home/manzar/Desktop/IEMOCAP/")
+    final_diction = data_parser.read_dataset()
