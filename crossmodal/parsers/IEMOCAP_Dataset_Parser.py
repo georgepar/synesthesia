@@ -1,9 +1,6 @@
 import os
 import glob
-import pickle
-import json
 import csv
-import pandas as pd
 
 from parsers.audio_parser.AudioParser import AudioParser
 
