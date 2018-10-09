@@ -1,5 +1,5 @@
-from audio.audio import load as load
-from audio.array_op import normalize as norm
+from parsers.audio_parser.audio.audio import load as load
+from parsers.audio_parser.audio.array_op import normalize as norm
 import numpy as np 
 
 class AudioParser:
@@ -40,7 +40,7 @@ class AudioParser:
     get_audio(): This function returns the np.ndarray created.
     '''
     def get_audio(self):
-        return self.sound
+        return (self.sound, self.freq)
 
 
 if __name__ == '__main__':
