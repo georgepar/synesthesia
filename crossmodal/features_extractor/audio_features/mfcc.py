@@ -20,3 +20,4 @@ if __name__ == '__main__':
     sr, signal = waver.read(path)
     mfccs = mfccs(signal,sr)
     print(mfccs.shape)
+    
