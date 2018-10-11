@@ -2,9 +2,11 @@ import numpy as np
 import scipy.io.wavfile as waver
 from librosa.feature import mfcc
 
-def mfccs(segment, 
-         sampling_rate,
+def mfccs(segment = None, 
+         sampling_rate = 16000,
          n = 13):
+    
+    assert segment is not None, 'Error: No segment'
     
     float_segment = segment.astype(float) # make float values for mfcc function
     mfccs = mfcc(y = float_segment,
@@ -20,4 +22,3 @@ if __name__ == '__main__':
     sr, signal = waver.read(path)
     mfccs = mfccs(signal,sr)
     print(mfccs.shape)
-    
