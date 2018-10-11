@@ -1,5 +1,9 @@
-from librosa.feature import zero_crossing_rate
 import numpy as np
+
+import scipy.io.wavfile import read
+
+from librosa.feature import zero_crossing_rate
+
 
 
 """
@@ -25,3 +29,6 @@ def zcr(wav, window_size=2048, hop=512):
                                    hop_length=hop_length)
 
     return zcr_array
+
+
+if __name__== 'main':
