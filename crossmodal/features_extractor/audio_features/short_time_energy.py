@@ -2,14 +2,8 @@ from librosa.feature import rmse
 import numpy as np
 
 """
-This function returns the short_time_energy of a wav file.
-The function takes as input the normalized wav file(in numpy array
-form)  the relative freq, the desirable window_size(frame size) and the
-desirable overlap for frame segmentation (in samples).
-The window_size is by default 2048 samples.
-The hop (used for overlapping) is by default 512 samples. 
-The returned value is a short time energy numpy array (each element 
-is  the short time energy for each  frame)
+This function returns the short time energy of a given segment. The sigment
+must be in numpy array form.
 """
 
 
