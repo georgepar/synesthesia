@@ -1,9 +1,6 @@
 import numpy as np
 
-import scipy.io.wavfile import read
-
-from librosa.feature import zero_crossing_rate
-
+#from scipy.io.wavfile import read
 
 
 """
@@ -18,17 +15,29 @@ each  frame)
 """
 
 
-def zcr(wav, window_size=2048, hop=512):
+def short_time_average_zcr(segment, window_size):
 
-    # frame's length in samples
-    frame_length =window_size
-    # hop for overlap in samples
-    hop_length = hop
+    diff = np.diff(np.sign(segment))
+    a_term = np.abs(np.concatenate((np.array(np.sign(segment[0])), diff),
+                                   axis=None))
 
-    zcr_array = zero_crossing_rate(wav, frame_length=frame_length,
-                                   hop_length=hop_length)
+    zcr = np.zeros(window_size-1)
+    for n in range(0, window_size-1):
+        summary = 0
+        for m in range(0, len(segment)-1):
+            if n-m >= 0 and n <= m+window_size-1:
+                summary = summary + a_term[m] * 1/(2*window_size)
+        zcr[n] = summary
 
-    return zcr_array
+    return zcr
 
 
-if __name__== 'main':
+"""
+if __name__ == '__main__':
+    freq,mywav = read('/home/manzar/Desktop/IEMOCAP/Session1/sentences/wav/'
+                      'Ses01F_impro01/Ses01F_impro01_F000.wav')
+    mywav_float = mywav.astype(np.float)
+    zcr_arr = short_time_average_zcr(mywav_float, 100)
+    print(zcr_arr)
+"""
+
