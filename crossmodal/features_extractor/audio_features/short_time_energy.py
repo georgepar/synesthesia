@@ -24,26 +24,32 @@ def short_time_energy(segment, window_size=2048, overlap=20, freq=16000):
     # frame's length in samples
     frame_length = window_size
 
-    #calculate hop length
+    # calculate hop length
     samples = freq * overlap *1e-3
 
     assert samples < window_size,"The given overlap is more than frame's size"
 
+    hop_length = int(frame_length - samples)
 
-    hop_length = frame_length - samples
-
-    #calculat rmse
+    # calculate rmse
     rmse_vector = rmse(y=segment, frame_length=frame_length,
-                       hop_length=hop_length)
+                       hop_length=hop_length,center=True)
 
-    #calculate short time energy from rmse
+    # calculate short time energy from rmse
     short_time_energy_vector = np.power(rmse_vector, 2) * frame_length
 
-    return short_time_energy_vector
+    return short_time_energy_vector.squeeze()
 
 
 if __name__ == "__main__":
     from pydub import AudioSegment
     path = '/home/manzar/Desktop/IEMOCAP/Session1/sentences/wav/Ses01M_impro01/Ses01M_impro01_M000.wav'
     wav = AudioSegment.from_wav(path)
-    print(wav)
+    audio_array = (np.asarray(wav.get_array_of_samples())).astype(np.float64)
+    audio_freq = wav.frame_rate
+    print(audio_array.shape)
+    a = short_time_energy(audio_array,window_size=2048,overlap=0)
+    print(a.shape)
+
+
+
