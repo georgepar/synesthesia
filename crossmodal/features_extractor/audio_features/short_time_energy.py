@@ -43,9 +43,7 @@ def short_time_energy(segment, window_size=2048, overlap=20, freq=16000):
 
 
 if __name__ == "__main__":
-
-
+    from pydub import AudioSegment
     path = '/home/manzar/Desktop/IEMOCAP/Session1/sentences/wav/Ses01M_impro01/Ses01M_impro01_M000.wav'
-    
-    b = short_time_energy(a,2,overlap=0)
-    print(b)
+    wav = AudioSegment.from_wav(path)
+    print(wav)
